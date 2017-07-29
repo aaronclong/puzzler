@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace slack_connector.Controllers
+namespace SlackConnector.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
