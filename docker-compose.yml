@@ -7,8 +7,15 @@ services:
   db:
     env_file: .env
     image: postgres:9.6.3-alpine
+    networks: 
+      - service
   puzzle:
     env_file: .env
+    networks:
+      - service
+    depends_on:
+      - db
+      - consul
     ports:
       - 8080:80
     build: ./puzzle
@@ -17,5 +24,5 @@ services:
     command: bash -c "dotnet restore Puzzle.csproj && dotnet run Puzzle.csproj"
 
 networks:
-  micro:
+  service:
     
