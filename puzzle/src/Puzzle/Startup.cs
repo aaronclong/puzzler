@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +24,8 @@ namespace Puzzle
             Configuration = builder.Build();
         }
 
+        public IContainer ApplicationContainer { get; private set; }
+
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,15 +33,22 @@ namespace Puzzle
         {
             // Add framework services.
             services.AddMvc();
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app,
+                              IHostingEnvironment env,
+                              ILoggerFactory loggerFactory,
+                              IApplicationLifetime appLifetime)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc();
+            appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
         }
     }
 }
