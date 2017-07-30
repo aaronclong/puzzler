@@ -2,6 +2,8 @@ version: '3'
 services:
   consul:
     image: consul
+    ports:
+      - 8500:8500
   db:
     env_file: .env
     image: postgres:9.6.3-alpine
@@ -13,3 +15,7 @@ services:
     volumes: 
       - "./puzzle/src/Puzzle:/usr/Puzzle"
     command: bash -c "dotnet restore Puzzle.csproj && dotnet run Puzzle.csproj"
+
+networks:
+  micro:
+    
