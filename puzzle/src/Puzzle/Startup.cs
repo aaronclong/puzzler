@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,6 +34,8 @@ namespace Puzzle
         {
             // Add framework services.
             services.AddMvc();
+            var connectionString = BuildConnectionString();
+            services.AddDbContext<PuzzleDbContext>(option => option.UseNpgsql(connectionString));
             var builder = new ContainerBuilder();
             builder.Populate(services);
             ApplicationContainer = builder.Build();
@@ -49,6 +52,17 @@ namespace Puzzle
 
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
+        }
+
+        private string BuildConnectionString()
+        {
+            var dict = Environment.GetEnvironmentVariables();
+            var dbUser = dict["POSTGRES_USER"];
+            var dbPassword = dict["POSTGRES_PASSWORD"];
+            var networkUrl = dict["NETWORK_URL"];
+            var dbName = dict["POSTGRES_DB"];
+            return $"User ID={dbUser};Password={dbPassword};" +
+                   $"Host={networkUrl};Port=5432;Database={dbName};Pooling=true;";
         }
     }
 }

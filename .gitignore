@@ -61,6 +61,8 @@ artifacts/
 
 .env
 
+*.sln
+
 *_i.c
 *_p.c
 *_i.h
