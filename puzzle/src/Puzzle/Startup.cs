@@ -1,15 +1,13 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Puzzle.Contexts;
 
 namespace Puzzle
 {
@@ -35,7 +33,7 @@ namespace Puzzle
             // Add framework services.
             services.AddMvc();
             var connectionString = BuildConnectionString();
-            services.AddDbContext<PuzzleDbContext>(option => option.UseNpgsql(connectionString));
+            services.AddDbContext<PuzzlerDbContext>(option => option.UseNpgsql(connectionString));
             var builder = new ContainerBuilder();
             builder.Populate(services);
             ApplicationContainer = builder.Build();
