@@ -1,7 +1,13 @@
-﻿namespace Puzzle.Repositories
+﻿using Puzzle.Contexts;
+
+namespace Puzzle.Repositories
 {
-    public class PuzzleRepository
+    public class PuzzleRepository : IRepository
     {
-        
+        private PuzzlerDbContext _context;
+        public PuzzleRepository(PuzzlerDbContext context)
+        {
+            _context = context;
+        }
     }
 }

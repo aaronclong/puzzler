@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using System;
+using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,8 +37,22 @@ namespace Puzzle
             var connectionString = BuildConnectionString();
             services.AddDbContext<PuzzlerDbContext>(option => option.UseNpgsql(connectionString));
             var builder = new ContainerBuilder();
+            EnableRepositoryAutoScan(builder);
             builder.Populate(services);
             ApplicationContainer = builder.Build();
+        }
+        
+        private ContainerBuilder EnableRepositoryAutoScan(ContainerBuilder builder)
+        {
+            var assemblies = Assembly.GetEntryAssembly()
+                .GetReferencedAssemblies()
+                .Select(Assembly.Load)
+                .Where(t => t.FullName.EndsWith("Repository"));
+            foreach (var a in assemblies)
+            {
+                builder.RegisterAssemblyTypes(a).AsImplementedInterfaces();
+            }
+            return builder;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
