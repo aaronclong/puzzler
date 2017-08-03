@@ -60,7 +60,7 @@ artifacts/
 **/Properties/launchSettings.json
 
 .env
-
+.DS_Store
 *.sln
 
 *_i.c
