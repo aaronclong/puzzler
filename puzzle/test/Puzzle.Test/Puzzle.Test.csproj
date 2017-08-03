@@ -6,10 +6,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Puzzle">
-      <HintPath>..\..\src\Puzzle\Puzzle.csproj</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\src\Puzzle\Puzzle.csproj" />
   </ItemGroup>
 </Project>
