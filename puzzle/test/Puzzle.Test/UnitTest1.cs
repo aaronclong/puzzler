@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using Puzzle.Models;
+using Puzzle;
 
 namespace Puzzle.Test
 {
