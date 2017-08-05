@@ -9,6 +9,8 @@ services:
     image: postgres:9.6.3-alpine
     networks: 
       - service
+    ports:
+      - 8550:5432
   puzzle:
     env_file: .env
     networks:
