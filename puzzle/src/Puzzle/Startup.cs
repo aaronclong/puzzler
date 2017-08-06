@@ -67,8 +67,8 @@ namespace Puzzle
             var dbPassword = dict["POSTGRES_PASSWORD"];
             var networkUrl = dict["NETWORK_URL"];
             var dbName = dict["POSTGRES_DB"];
-            return $"User ID={dbUser};Password={dbPassword};" +
-                   $"Host={networkUrl};Port=5432;Database={dbName};Pooling=true;";
+            return $"Host={networkUrl};Database={dbName};Pooling=true;" +
+                $"User ID={dbUser};Password={dbPassword};";
         }
     }
 }

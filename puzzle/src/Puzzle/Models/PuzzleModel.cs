@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Puzzle.Models
 {
-    [Table("puzzles")]
+    [Table("puzzles", Schema = "puzzler")]
     public class PuzzleModel
     {
         [Key]
