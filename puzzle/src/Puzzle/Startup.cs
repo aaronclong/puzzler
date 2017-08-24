@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Puzzle.Contexts;
 using Puzzle.Repositories;
+using System;
+using System.Collections;
 
 namespace Puzzle
 {
@@ -62,7 +63,7 @@ namespace Puzzle
 
         private string BuildConnectionString()
         {
-            var dict = Environment.GetEnvironmentVariables();
+            IDictionary dict = Environment.GetEnvironmentVariables();
             var dbUser = dict["POSTGRES_USER"];
             var dbPassword = dict["POSTGRES_PASSWORD"];
             var networkUrl = dict["NETWORK_URL"];
