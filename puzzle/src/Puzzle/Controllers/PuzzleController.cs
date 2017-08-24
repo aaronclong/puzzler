@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Puzzle.Repositories;
 using Puzzle.Responses;
@@ -7,7 +7,7 @@ using System;
 namespace Puzzle.Controllers
 {
 
-    [Route("puzzle")]
+    [Route("api/puzzle")]
     public class PuzzleController : Controller
     {
         private PuzzleRepository _repository;
@@ -18,10 +18,10 @@ namespace Puzzle.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPuzzle(Guid id)
+        public async Task<IActionResult> GetPuzzle(Guid id)
         {
-            var puzzle = new PuzzleJson();
-
+            var model = await _repository.FindPuzzle(id);
+            var puzzle = new PuzzleJson(model);
             return Json(new JsonFormatter(puzzle));
         }
     }

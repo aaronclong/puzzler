@@ -5,21 +5,20 @@ namespace Puzzle.Responses
 {
     public class JsonFormatter
     {
+        [JsonProperty(PropertyName = "body")]
         private Object _message;
 
-        public JsonFormatter(Response response)
+        [JsonProperty(PropertyName = "timestamp")]
+		private readonly long _timeStamp;
+
+        public JsonFormatter()
+        {
+            _timeStamp = DateTime.Now.ToFileTime();
+        }
+
+        public JsonFormatter(Response response) : this()
         {
             _message = response.GetMessage();
-        }
-
-        public DateTime TimeStamp()
-        {
-            return DateTime.Now;
-        }
-
-        public Object Body()
-        {
-            return _message;
         }
     }
 }
