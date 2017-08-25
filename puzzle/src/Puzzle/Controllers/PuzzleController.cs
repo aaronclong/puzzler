@@ -11,6 +11,7 @@ namespace Puzzle.Controllers
     public class PuzzleController : Controller
     {
         private PuzzleRepository _repository;
+        private readonly string PUZZLE_ADDED = "The Puzzle was added sucessfully";
 
         public PuzzleController(PuzzleRepository repository)
         {
@@ -24,5 +25,12 @@ namespace Puzzle.Controllers
             var puzzle = new PuzzleJson(model);
             return Json(new JsonFormatter(puzzle));
         }
-    }
+
+		[HttpPost]
+        public IActionResult MakePuzzle([FromBody] PuzzleRequest request)
+		{
+            _repository.Insert(request);
+            return Json(new JsonFormatter(PUZZLE_ADDED));
+		}
+	}
 }

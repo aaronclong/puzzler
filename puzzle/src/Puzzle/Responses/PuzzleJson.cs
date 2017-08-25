@@ -15,12 +15,13 @@ namespace Puzzle.Responses
 
         public object GetMessage()
         {
-            return "Hellow World";
+            return _puzzle;
         }
 
         private PuzzleModel ExtractPuzzle(PuzzleModel model)
         {
-            
+            _puzzle["puzzle"] = model.Problem;
+            _puzzle["source"] = model.Origin;
             return model;
         }
     }

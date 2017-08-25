@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Puzzle.RequestModels;
 
 namespace Puzzle.Responses
 {
@@ -19,6 +20,11 @@ namespace Puzzle.Responses
         public JsonFormatter(Response response) : this()
         {
             _message = response.GetMessage();
+        }
+
+        public JsonFormatter(string message) : this()
+        {
+            _message = message;
         }
     }
 }

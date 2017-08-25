@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Responses\" />
+    <Folder Include="RequestModels\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.1" />

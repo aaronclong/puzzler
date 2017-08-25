@@ -1,5 +1,6 @@
 ﻿using Puzzle.Contexts;
 using Puzzle.Models;
+using Puzzle.RequestModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -18,6 +19,19 @@ namespace Puzzle.Repositories
         public async Task<PuzzleModel> FindPuzzle(Guid id)
         {
             return await _context.Puzzles.SingleOrDefaultAsync(m => m.Id == id);
+        }
+
+        public PuzzleModel Insert(PuzzleRequest puzzle)
+        {
+            var dbModel = new PuzzleModel();
+            dbModel.Problem = puzzle.Puzzle;
+            dbModel.Origin = puzzle.Origin;
+            dbModel.Added = DateTime.Now;
+
+            _context.Add(dbModel);
+            _context.SaveChanges();
+
+            return dbModel;
         }
     }
 }
