@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Puzzle.RequestModels;
 
@@ -6,8 +8,9 @@ namespace Puzzle.Responses
 {
     public class JsonFormatter
     {
-        [JsonProperty(PropertyName = "body")]
-        private Object _message;
+        [JsonExtensionData]
+        //[JsonProperty(PropertyName = "body")]
+        private IDictionary<string, object> _message;
 
         [JsonProperty(PropertyName = "timestamp")]
 		private readonly long _timeStamp;
@@ -24,7 +27,10 @@ namespace Puzzle.Responses
 
         public JsonFormatter(string message) : this()
         {
-            _message = message;
+            _message = new Dictionary<string, object>
+            {
+                { "status", message }
+            };
         }
     }
 }

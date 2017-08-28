@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Puzzle.Responses
 {
     public interface Response
     {
-        Object GetMessage();
+        IDictionary<string, object> GetMessage();
     }
 }

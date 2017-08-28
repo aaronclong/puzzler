@@ -6,14 +6,14 @@ namespace Puzzle.Responses
 {
     public class PuzzleJson : Response
     {
-        private readonly IDictionary<String, String> _puzzle;
+        private readonly IDictionary<String, object> _puzzle;
 
         public PuzzleJson(PuzzleModel model)
         {
-            _puzzle = new Dictionary<string, string>();
+            _puzzle = new Dictionary<string, object>();
         }
 
-        public object GetMessage()
+        public IDictionary<string, object> GetMessage()
         {
             return _puzzle;
         }

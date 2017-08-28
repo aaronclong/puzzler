@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Puzzle.Repositories;
 using Puzzle.Responses;
+using Puzzle.RequestModels;
 using System;
 
 namespace Puzzle.Controllers
@@ -11,7 +12,7 @@ namespace Puzzle.Controllers
     public class PuzzleController : Controller
     {
         private PuzzleRepository _repository;
-        private readonly string PUZZLE_ADDED = "The Puzzle was added sucessfully";
+        private readonly string PUZZLE_ADDED = "The Puzzle was added sucessfully.";
 
         public PuzzleController(PuzzleRepository repository)
         {
@@ -23,6 +24,7 @@ namespace Puzzle.Controllers
         {
             var model = await _repository.FindPuzzle(id);
             var puzzle = new PuzzleJson(model);
+            Console.Write(puzzle.GetMessage());
             return Json(new JsonFormatter(puzzle));
         }
 

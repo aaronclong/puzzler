@@ -23,11 +23,12 @@ namespace Puzzle.Repositories
 
         public PuzzleModel Insert(PuzzleRequest puzzle)
         {
-            var dbModel = new PuzzleModel();
-            dbModel.Problem = puzzle.Puzzle;
-            dbModel.Origin = puzzle.Origin;
-            dbModel.Added = DateTime.Now;
-
+            var dbModel = new PuzzleModel()
+            {
+                Problem = puzzle.Puzzle,
+                Origin = puzzle.Origin,
+                Added = DateTime.Now
+            };
             _context.Add(dbModel);
             _context.SaveChanges();
 
