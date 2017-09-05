@@ -19,7 +19,7 @@ namespace Puzzle
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -34,10 +34,8 @@ namespace Puzzle
         {
             // Add framework services.
             services.AddMvc();
-            var connectionString = BuildConnectionString();
-            services.AddDbContext<PuzzlerDbContext>(option => option.UseNpgsql(connectionString));
             var builder = new ContainerBuilder();
-            AddRepositories(services);
+            //AddRepositories(services);
             builder.Populate(services);
             ApplicationContainer = builder.Build();
         }
@@ -59,17 +57,6 @@ namespace Puzzle
 
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
-        }
-
-        private string BuildConnectionString()
-        {
-            IDictionary dict = Environment.GetEnvironmentVariables();
-            var dbUser = dict["POSTGRES_USER"];
-            var dbPassword = dict["POSTGRES_PASSWORD"];
-            var networkUrl = dict["NETWORK_URL"];
-            var dbName = dict["POSTGRES_DB"];
-            return $"Host={networkUrl};Database={dbName};Pooling=true;" +
-                $"User ID={dbUser};Password={dbPassword};";
         }
     }
 }

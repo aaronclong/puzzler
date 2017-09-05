@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using Puzzle.RequestModels;
+using Puzzle.JsonModels;
 
 namespace Puzzle.Responses
 {
     public class JsonFormatter
     {
         [JsonExtensionData]
-        //[JsonProperty(PropertyName = "body")]
-        private IDictionary<string, object> _message;
+        [JsonProperty(PropertyName = "body")]
+        private IJsonModel _message;
 
         [JsonProperty(PropertyName = "timestamp")]
 		private readonly long _timeStamp;
@@ -20,17 +18,9 @@ namespace Puzzle.Responses
             _timeStamp = DateTime.Now.ToFileTime();
         }
 
-        public JsonFormatter(Response response) : this()
-        {
-            _message = response.GetMessage();
-        }
-
-        public JsonFormatter(string message) : this()
-        {
-            _message = new Dictionary<string, object>
-            {
-                { "status", message }
-            };
-        }
+        public JsonFormatter(IJsonModel model) : this()
+		{
+            _message = model;
+		}
     }
 }

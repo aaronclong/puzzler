@@ -1,6 +1,6 @@
 ﻿using Puzzle.Contexts;
 using Puzzle.Models;
-using Puzzle.RequestModels;
+using Puzzle.JsonModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -21,7 +21,7 @@ namespace Puzzle.Repositories
             return await _context.Puzzles.SingleOrDefaultAsync(m => m.Id == id);
         }
 
-        public PuzzleModel Insert(PuzzleRequest puzzle)
+        public PuzzleModel Insert(PuzzleJson puzzle)
         {
             var dbModel = new PuzzleModel()
             {

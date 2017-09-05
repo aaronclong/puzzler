@@ -11,6 +11,7 @@ namespace Puzzle.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Problem { get; set; }
+        public string Answer { get; set; }
         public string Origin { get; set; }
         public DateTime Added { get; set; }
     }

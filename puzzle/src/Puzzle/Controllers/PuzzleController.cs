@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Puzzle.Repositories;
 using Puzzle.Responses;
-using Puzzle.RequestModels;
+using Puzzle.JsonModels;
 using System;
 
 namespace Puzzle.Controllers
@@ -12,7 +12,6 @@ namespace Puzzle.Controllers
     public class PuzzleController : Controller
     {
         private PuzzleRepository _repository;
-        private readonly string PUZZLE_ADDED = "The Puzzle was added sucessfully.";
 
         public PuzzleController(PuzzleRepository repository)
         {
@@ -23,16 +22,18 @@ namespace Puzzle.Controllers
         public async Task<IActionResult> GetPuzzle(Guid id)
         {
             var model = await _repository.FindPuzzle(id);
-            var puzzle = new PuzzleJson(model);
-            Console.Write(puzzle.GetMessage());
+            var puzzle = new PuzzleJson();
+            puzzle.Answer = model.Answer;
+            puzzle.Origin = model.Origin;
+            puzzle.Puzzle = model.Problem;
             return Json(new JsonFormatter(puzzle));
         }
 
 		[HttpPost]
-        public IActionResult MakePuzzle([FromBody] PuzzleRequest request)
+        public IActionResult MakePuzzle([FromBody] PuzzleJson request)
 		{
             _repository.Insert(request);
-            return Json(new JsonFormatter(PUZZLE_ADDED));
+            return Json(request);
 		}
 	}
 }

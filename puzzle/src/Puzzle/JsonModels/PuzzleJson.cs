@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Puzzle.RequestModels
+namespace Puzzle.JsonModels
 {
-    public class PuzzleRequest
+    public class PuzzleJson : IJsonModel
     {
         public string Puzzle { get; set; }
         public string Origin { get; set; }
