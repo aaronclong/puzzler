@@ -24,7 +24,7 @@ namespace Puzzle.Contexts
             return new PuzzlerDbContext(builder.Options);
         }
 
-		private string BuildConnectionString()
+		static public string BuildConnectionString()
 		{
 			IDictionary dict = Environment.GetEnvironmentVariables();
 			var dbUser = dict["POSTGRES_USER"];
