@@ -21,7 +21,7 @@ services:
     build: ./puzzle
     volumes: 
       - "./puzzle/src/Puzzle:/usr/Puzzle"
-    command: bash -c "dotnet restore Puzzle.csproj && dotnet run Puzzle.csproj"
+    command: bash -c "dotnet restore Puzzle.csproj && dotnet run"
 
 networks:
   service:
